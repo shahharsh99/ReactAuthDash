@@ -34,7 +34,7 @@ class Signup extends Component {
             lastName === '' ||
             email === '' ||
             password === '' ||
-            confirmPassword === "" ||
+            confirmPassword === "",
             address === '' ||
             city === '' ||
             state === '' ||
@@ -45,7 +45,7 @@ class Signup extends Component {
         } else if (password.length < 6 || confirmPassword.length < 6) {
             return this.setState({ error: 'Please enter at least 6 characters...' });
         } else if (password !== confirmPassword) {
-            return this.setState({ error: 'Both passwords should match...' });
+            return this.setState({ error: 'Both passwords must be same' });
         } else {
             try {
                 const { user } = await auth.createUserWithEmailAndPassword(
@@ -78,6 +78,7 @@ class Signup extends Component {
                     country: "",
                     pincode: ""
                 })
+                toastr.success("Successfully Signed Up")
             } catch (error) {
                 const message = error ? error.message : 'Can\'t register';
                 toastr.error('Error!', message);

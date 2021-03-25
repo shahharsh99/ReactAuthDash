@@ -12,6 +12,7 @@ import Signup from "./pages/Signup/Signup";
 import Profile from "./pages/Profile/Profile";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword"
 
 function App({ setUser, history, removeUser, auth }) {
     React.useEffect(() => {
@@ -27,7 +28,7 @@ function App({ setUser, history, removeUser, auth }) {
                 removeUser();
             }
         });
-    }, [history, removeUser, setUser]);
+    }, []);
     return (
         <div className="App">
             <Navbar />
@@ -37,6 +38,7 @@ function App({ setUser, history, removeUser, auth }) {
                 <PrivateRoute auth={{ isAuthenticated: !auth.isAuthenticated, loading: auth.loading }}
                     exact path="/login" component={Login} redirectTo={'/'} />
                 <Route exact path="/signup" component={Signup} />
+                <Route exact path="/forgot-password" component={ForgotPassword} />
                 <Route path="*" render={() => <Redirect to="/" />} />
             </Switch>
             <ReduxToastr

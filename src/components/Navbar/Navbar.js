@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux"
 import { toastr } from "react-redux-toastr";
 import { auth } from '../../firebase/firebase.utils';
-import { Link, NavLink, withRouter } from "react-router-dom"
+import { NavLink, withRouter } from "react-router-dom"
 import "./Navbar.scss"
 
 const loggedOut = (
@@ -33,7 +33,7 @@ const Navbar = ({ history, currentUser }) => {
             toastr.error('Success!', 'Something went wrong while logging out.');
         }
     }
-    console.log("''''''''''''''''", currentUser);
+    { console.log("''''''''''''''''", currentUser); }
     // const { photoUrl, firstName, lastName, quote, id, bio } = currentUser;
 
     const handleWelcome = () => {
@@ -53,7 +53,7 @@ const Navbar = ({ history, currentUser }) => {
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
                                         <NavLink exact to="/profile" className="nav-item">
-                                            <img alt="profile" src={currentUser?.photoUrl} className="avatar"></img>
+                                            <img src={currentUser?.photoUrl} className="avatar"></img>
                                         </NavLink>
                                     </li>
                                     &nbsp;
@@ -65,7 +65,7 @@ const Navbar = ({ history, currentUser }) => {
                                             className="nav-link">Profile</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <Link onClick={logout} className="nav-link">Logout</Link>
+                                        <a onClick={logout} className="nav-link">Logout</a>
                                     </li>
                                 </ul>
                             </center> :

@@ -12,7 +12,7 @@ class Profile extends Component {
 
 
     render() {
-        const { photoUrl, firstName, lastName, address, id } = this.props.user;
+        const { photoUrl, firstName, lastName, city, address, state, country, pincode, id } = this.props.user;
         return (
             <>
                 {
