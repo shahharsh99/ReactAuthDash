@@ -33,8 +33,6 @@ const Navbar = ({ history, currentUser }) => {
             toastr.error('Success!', 'Something went wrong while logging out.');
         }
     }
-    { console.log("''''''''''''''''", currentUser); }
-    // const { photoUrl, firstName, lastName, quote, id, bio } = currentUser;
 
     const handleWelcome = () => {
         if ({ currentUser }) {
@@ -52,11 +50,33 @@ const Navbar = ({ history, currentUser }) => {
                             <center>
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <NavLink exact to="/profile" className="nav-item">
-                                            <img src={currentUser?.photoUrl} className="avatar"></img>
-                                        </NavLink>
+                                        <NavLink
+                                            activeClassName="active"
+                                            exact
+                                            to="/dashboard"
+                                            className="nav-link">Dashboard</NavLink>
                                     </li>
-                                    &nbsp;
+                                    <li className="nav-item">
+                                        <NavLink
+                                            activeClassName="active"
+                                            exact
+                                            to="/overview"
+                                            className="nav-link">Overview</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            activeClassName="active"
+                                            exact
+                                            to="/todo"
+                                            className="nav-link">Task List</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink
+                                            activeClassName="active"
+                                            exact
+                                            to="/todo-dashboard"
+                                            className="nav-link">Todo Dashboard</NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         <NavLink
                                             activeClassName="active"
@@ -67,6 +87,12 @@ const Navbar = ({ history, currentUser }) => {
                                     <li className="nav-item">
                                         <a onClick={logout} className="nav-link">Logout</a>
                                     </li>
+                                    <li className="nav-item">
+                                        <NavLink exact to="/profile" className="nav-item">
+                                            <img src={currentUser?.photoUrl} className="avatar"></img>
+                                        </NavLink>
+                                    </li>
+                                &nbsp;
                                 </ul>
                             </center> :
                             loggedOut

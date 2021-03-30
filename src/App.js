@@ -13,6 +13,11 @@ import Profile from "./pages/Profile/Profile";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword"
+import Dashboard from './pages/Dashboard/Dashboard';
+import CreateTask from './pages/ToDo/CreateTask';
+import ToDoList from './pages/ToDo/ToDoList';
+import ToDoDashboard from './pages/ToDo/ToDoDashboard';
+import ToDoOverview from './pages/ToDo/ToDoOverview';
 
 function App({ setUser, history, removeUser, auth }) {
     React.useEffect(() => {
@@ -33,13 +38,19 @@ function App({ setUser, history, removeUser, auth }) {
         <div className="App">
             <Navbar />
             <Switch>
+                <PrivateRoute auth={auth} exact path="/overview" component={ToDoOverview} />
+                <PrivateRoute auth={auth} exact path="/todo/create-task" component={CreateTask} />
+                <PrivateRoute auth={auth} exact path="/todo/:id/edit-task/:id" component={CreateTask} />
+                <PrivateRoute auth={auth} exact path="/todo" component={ToDoList} />
+                <PrivateRoute auth={auth} exact path="/todo-dashboard" component={ToDoDashboard} />
                 <PrivateRoute auth={auth} exact path="/profile" component={Profile} />
                 <PrivateRoute auth={auth} exact path="/profile/:id/edit" component={EditProfile} />
+                <PrivateRoute auth={auth} exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute auth={{ isAuthenticated: !auth.isAuthenticated, loading: auth.loading }}
-                    exact path="/login" component={Login} redirectTo={'/'} />
+                    exact path="/login" component={Login} redirectTo={'/dashboard'} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/forgot-password" component={ForgotPassword} />
-                <Route path="*" render={() => <Redirect to="/" />} />
+                <Route path="*" render={() => <Redirect to="/dashboard" />} />
             </Switch>
             <ReduxToastr
                 timeOut={4000}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 import AlgoliaPlaces from 'algolia-places-react';
 import { toastr } from "react-redux-toastr";
+import firebase, { firestore } from 'firebase';
 
 class Signup extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class Signup extends Component {
             lastName === '' ||
             email === '' ||
             password === '' ||
-            confirmPassword === "",
+            confirmPassword === "" ||
             address === '' ||
             city === '' ||
             state === '' ||
@@ -55,7 +56,6 @@ class Signup extends Component {
                 await createUserProfileDocument(user, {
                     firstName,
                     lastName,
-                    // default avatar
                     photoUrl: 'https://firebasestorage.googleapis.com/v0/b/chat-874ea.appspot.com/o/default-avatar.jpg?alt=media&token=e294ee8a-3a09-4225-a768-85bbc9988c22',
                     address,
                     city,
@@ -63,9 +63,7 @@ class Signup extends Component {
                     country,
                     pincode
                 });
-                await user.updateProfile({
-                    displayName: firstName + " " + lastName,
-                });
+                
                 this.setState({
                     firstName: "",
                     lastName: "",
@@ -80,8 +78,7 @@ class Signup extends Component {
                 })
                 toastr.success("Successfully Signed Up")
             } catch (error) {
-                const message = error ? error.message : 'Can\'t register';
-                toastr.error('Error!', message);
+                toastr.error('Error!', error);
             }
         }
     };

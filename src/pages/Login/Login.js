@@ -45,11 +45,11 @@ const Login = () => {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-                <small><Link to="/signup">Need an Account?</Link></small>
+                <small><Link to="/signup">Need an Account?</Link></small><br />
+                <small><Link to="/forgot-password">Forgot Password</Link></small>
                 {error.length ? (
                     <div className="alert alert-danger mt-3">{error}</div>
-                ) : null}<br />
-                <small><Link to="/forgot-password">Forgot Password</Link></small>
+                ) : null}
             </div>
         </div>
     );

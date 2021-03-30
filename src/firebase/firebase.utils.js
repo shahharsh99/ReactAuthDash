@@ -11,7 +11,6 @@ const config = {
     storageBucket: "reactdashboard-c3584.appspot.com",
     messagingSenderId: "320983437617",
     appId: "1:320983437617:web:5f0f1c5b8023aa8bc3a010"
-
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -41,42 +40,6 @@ export const imageUpload = (image, filePath) => {
 
     return uploadTask;
 };
-
-// export const sendMessage = (chatroomId, message) => {
-//     return firestore.collection(`chatrooms/${chatroomId}/messages`).add(message);
-// }
-
-// // export const addCollectionAndDocuments = async (
-// //     collectionKey,
-// //     objectsToAdd
-// // ) => {
-// //     const collectionRef = firestore.collection(collectionKey);
-
-// //     const batch = firestore.batch();
-// //     objectsToAdd.forEach(obj => {
-// //         const newDocRef = collectionRef.doc();
-// //         batch.set(newDocRef, obj);
-// //     });
-
-// return await batch.commit();
-// };
-
-// export const convertCollectionsSnapshotToMap = collections => {
-//     const transformedCollection = collections.docs.map(doc => {
-//         const { title, items } = doc.data();
-
-//         return {
-//             routeName: encodeURI(title.toLowerCase()),
-//             id: doc.id,
-//             title,
-//             items
-//         };
-//     });
-//     return transformedCollection.reduce((accumulator, collection) => {
-//         accumulator[collection.title.toLowerCase()] = collection;
-//         return accumulator;
-//     }, {});
-// };
 
 firebase.initializeApp(config);
 

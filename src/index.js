@@ -1,4 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootbox/bootbox'
+import 'bootstrap/js/dist/modal'
+import 'font-awesome/css/font-awesome.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
