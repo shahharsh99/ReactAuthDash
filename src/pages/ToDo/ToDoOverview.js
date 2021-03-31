@@ -12,7 +12,10 @@ class ToDoOverview extends Component {
         super();
 
         this.state = {
-            mydata: []
+            filterType: null,
+            filterDate: null,
+            mydata: [],
+            filterData: []
         }
     }
 
@@ -20,6 +23,8 @@ class ToDoOverview extends Component {
     componentDidMount() {
         this.getTodoData();
     }
+
+
 
     getTodoData = async () => {
         await firebase.firestore().collection('users').doc(this.props.user.id).collection('todos').get()
@@ -74,6 +79,41 @@ class ToDoOverview extends Component {
         }
     }
 
+    handleChangeTaskType = (e) => {
+        console.log(e.target.value);
+        this.setState({ filterType: e.target.value })
+    };
+
+    handleChangeTaskDate = (e) => {
+        console.log(e.target.value);
+        this.setState({ filterDate: e.target.value })
+    };
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+        {
+            const filterData = []
+            this.state.mydata.map(data => {
+                if (this.state.filterDate === data.taskDate && this.state.filterType === null) {
+                    filterData.push(data)
+                    console.log(filterData);
+                }
+                else if (this.state.filterType === data.taskType && this.state.filterDate === null) {
+                    filterData.push(data)
+                    console.log(filterData);
+                }
+                else if (data.taskDate === this.state.filterDate && data.taskType === this.state.filterType) {
+                    filterData.push(data)
+                    console.log(filterData);
+                }
+            })
+            this.setState({ filterData })
+        }
+        // (d.taskDate === this.state.filterDate) && (d.taskType === this.state.filterType)
+        // console.log(this.state);
+    }
+
+
     render() {
 
 
@@ -102,14 +142,62 @@ class ToDoOverview extends Component {
             },
         ];
 
-        const { user } = this.props
-        console.log(this.state.mydata);
         return (
             <div>
                 {
                     this.props.user ?
-                        <div className="m-5">
+                        <div className="mt-5">
+                            <div className="  justify-content-center align-items-center">
+                                <div className=" text-center">
+                                    <h2 className="text-center"> Filter</h2>
+                                    <form onSubmit={this.handleSubmit}>
+                                        <div className="name-wrapper d-flex">
 
+                                            <div className="form-group task-date w-100 m-3">
+                                                <input
+                                                    type="date"
+                                                    name="filterDate"
+                                                    className="form-control"
+                                                    id="task-date-input"
+                                                    value={this.state.filterDate}
+                                                    onChange={(e) => this.handleChangeTaskDate(e)}
+                                                />
+                                            </div>
+                                            <div className="form-group task-type w-100 m-3">
+                                                <select
+                                                    name="filterType"
+                                                    className="form-control"
+                                                    id="filter-type-input"
+                                                    value={this.state.filterType}
+                                                    onChange={(e) => this.handleChangeTaskType(e)}
+                                                >
+                                                    <option value="" selected="selected">Please select a type</option>
+                                                    <option value="Priority 1" >Priority 1</option>
+                                                    <option value="Priority 2" >Priority 2</option>
+                                                    <option value="Priority 3" >Priority 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button type="submit" className="btn btn-primary btn-sm w-25 m-3" style={{ height: "35px" }}>Apply Filter</button>
+                                    </form>
+                                </div>
+                            </div >
+                            <hr />
+                            <DataTable
+                                title="Filtered Data"
+                                actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
+                                striped
+                                columns={columns}
+                                data={this.state.filterData}
+                                defaultSortField="taskDate"
+                                // sortIcon={<SortIcon />}
+                                sortable
+                                pagination
+                                highlightOnHover
+                                responsive
+                            // selectableRows
+                            // onSelectedRowsChange={handleChange}
+                            />
                             <DataTable
                                 title="Overview"
                                 actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
@@ -125,7 +213,6 @@ class ToDoOverview extends Component {
                             // selectableRows
                             // onSelectedRowsChange={handleChange}
                             />
-
                         </div> :
                         <Spinner />
                 }

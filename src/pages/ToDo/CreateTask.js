@@ -10,7 +10,6 @@ class CreateTask extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            typeArray: ["Priority 1", "Priority 2, Priority 3"],
             taskName: "",
             taskDescription: "",
             taskWhere: "",
