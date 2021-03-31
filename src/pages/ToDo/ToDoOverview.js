@@ -147,7 +147,7 @@ class ToDoOverview extends Component {
                 {
                     this.props.user ?
                         <div className="mt-5">
-                            <div className="  justify-content-center align-items-center">
+                            <div className="container justify-content-center align-items-center">
                                 <div className=" text-center">
                                     <h2 className="text-center"> Filter</h2>
                                     <form onSubmit={this.handleSubmit}>
