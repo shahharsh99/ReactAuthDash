@@ -1,4 +1,4 @@
-# Here is the live demo <a href="https://reactauthdashboard.netlify.app/" style="font-size: 40px">CLICK TO SEE DEMO</a>
+# Here is the live demo <a href="https://reactauthdash.herokuapp.com/" style="font-size: 40px">CLICK TO SEE DEMO</a>
 
 # Getting Started with Create React App
 
