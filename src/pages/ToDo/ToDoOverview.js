@@ -113,6 +113,9 @@ class ToDoOverview extends Component {
         // console.log(this.state);
     }
 
+    handleReset = () => {
+        this.setState({ filterData: [], filterDate: null, filterType: null })
+    }
 
     render() {
 
@@ -147,7 +150,7 @@ class ToDoOverview extends Component {
                 {
                     this.props.user ?
                         <div className="mt-5">
-                            <div className="container justify-content-center align-items-center">
+                            <div className=" container justify-content-center align-items-center">
                                 <div className=" text-center">
                                     <h2 className="text-center"> Filter</h2>
                                     <form onSubmit={this.handleSubmit}>
@@ -178,41 +181,46 @@ class ToDoOverview extends Component {
                                                 </select>
                                             </div>
                                         </div>
+                                        <button type="reset" className="btn btn-secondary btn-sm w-25 m-3" style={{ height: "35px" }} value="Reset" onClick={this.handleReset}>Reset</button>
                                         <button type="submit" className="btn btn-primary btn-sm w-25 m-3" style={{ height: "35px" }}>Apply Filter</button>
                                     </form>
                                 </div>
                             </div >
                             <hr />
-                            <DataTable
-                                title="Filtered Data"
-                                actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
-                                striped
-                                columns={columns}
-                                data={this.state.filterData}
-                                defaultSortField="taskDate"
-                                // sortIcon={<SortIcon />}
-                                sortable
-                                pagination
-                                highlightOnHover
-                                responsive
-                            // selectableRows
-                            // onSelectedRowsChange={handleChange}
-                            />
-                            <DataTable
-                                title="Overview"
-                                actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
-                                striped
-                                columns={columns}
-                                data={this.state.mydata}
-                                defaultSortField="taskDate"
-                                // sortIcon={<SortIcon />}
-                                sortable
-                                pagination
-                                highlightOnHover
-                                responsive
-                            // selectableRows
-                            // onSelectedRowsChange={handleChange}
-                            />
+                            {this.state.filterData.length !== 0 ?
+                                <DataTable
+                                    title="Filtered Data"
+                                    actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
+                                    striped
+                                    columns={columns}
+                                    data={this.state.filterData}
+                                    defaultSortField="taskDate"
+                                    // sortIcon={<SortIcon />}
+                                    sortable
+                                    pagination
+                                    highlightOnHover
+                                    responsive
+                                // selectableRows
+                                // onSelectedRowsChange={handleChange}
+                                /> :
+                                <>
+                                    <p className="container text-center">No Filtered Data</p>
+                                    <DataTable
+                                        title="Overview"
+                                        actions={<Link to={"/todo/create-task"} className="btn btn-primary">Add Task</Link>}
+                                        striped
+                                        columns={columns}
+                                        data={this.state.mydata}
+                                        defaultSortField="taskDate"
+                                        // sortIcon={<SortIcon />}
+                                        sortable
+                                        pagination
+                                        highlightOnHover
+                                        responsive
+                                    // selectableRows
+                                    // onSelectedRowsChange={handleChange}
+                                    />
+                                </>}
                         </div> :
                         <Spinner />
                 }
